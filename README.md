@@ -13,6 +13,6 @@ Contains the minimum of "core" functionalities of `cmd-zet`. The following thing
 
 # Legal
 
-Copyright of the original code belongs to Rob Muhlestein rob@rwx.gg
-Released under Apache-2.0 License
-See also https://youtube.com/rwxrob
+Copyright of the original code belongs to Rob Muhlestein rob@rwx.gg  
+Released under Apache-2.0 License  
+See also https://youtube.com/rwxrob  
