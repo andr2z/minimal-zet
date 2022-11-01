@@ -41,8 +41,8 @@ declare -A CONF
 
 _initialize() {
   : "${CONF[zet.private]:="$PRIVATE/$ZET_DIR"}"
-  : "${CONF[zet.work]:="$WORK/$ZET_DIR"}"
-  : "${CONF[zet.work1]:="$WORK1/$ZET_DIR"}"
+#  : "${CONF[zet.work]:="$WORK/$ZET_DIR"}"
+#  : "${CONF[zet.work1]:="$WORK1/$ZET_DIR"}"
 # initialize more work directories here if needed
   : "${CONF[current]:=private}"
   : "${CONF[download.directory]:="$DOWNLOADS"}"
