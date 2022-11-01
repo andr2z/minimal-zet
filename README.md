@@ -1,7 +1,7 @@
 # minimal-zet
 
 Create notes with minimal effort and maximal searchability.
-This is a minimal version of [cmd-zet/](https://github.com/rwxrob/cmd-zet/).
+This is a minimal version of [cmd-zet/](https://github.com/rwxrob/cmd-zet).
 
 # Changes summary
 
