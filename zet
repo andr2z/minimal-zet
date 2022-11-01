@@ -53,8 +53,8 @@ _initialize() {
 }
 
 x.zet.private() { x.config zet.private "$@"; }
-x.zet.work() { x.config zet.work "$@"; }
-x.zet.work1() { x.config zet.work1 "$@"; }
+#x.zet.work() { x.config zet.work "$@"; }
+#x.zet.work1() { x.config zet.work1 "$@"; }
 x.current() { x.config current "$@"; }
 x.download.directory() { x.config download.directory "$@"; }
 x.screenshot.directory() { x.config screenshot.directory "$@"; }
