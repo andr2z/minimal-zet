@@ -3,7 +3,11 @@
 Create notes with minimal effort and maximal searchability.
 This is a minimal version of [cmd-zet](https://github.com/rwxrob/cmd-zet).
 
-# How to use
+# What does it?
+
+Each note creation triggers the creation of a folder with the current timestamp as name. In the folder, a `Readme.md`-"master"-file gets created, where you can write your notes, and give it a title. Additionally, you can add any files, like screenshots or audio files into the same folder. This goes very nicely with the Zettelkasten-method, but also with the search of remote repository platforms like github or gitlab.
+
+# How to use it?
 
 ## Step 0 Dependencies
 - Make sure, you installed `Bash 4.0` and `pandoc`
@@ -19,14 +23,14 @@ This is a minimal version of [cmd-zet](https://github.com/rwxrob/cmd-zet).
 - Change current `zet`-directory by `zet use <directory name>` (Now all commands affect the current `zet`-directory. If you forgot in which one you are, you can check by `zet current`)
 - Create a new note by `zet create <note name>`. After you saved the file, a git-commit is automatically triggered
 - The same holds for `zet delete <note name>`
-- Analogously, you can edit a note by `zet edit <note name>`. After saving again, the git-commit is optional
+- Analogously, you can edit a note by `zet edit <note name>` or `zet edit <timestamp>`. After saving again, the git-commit is optional
 
 - You can check the total number of notes in the current `zet`-directory by `zet count`
 
 ## Searching:
 
 - By `zet find <xyz>` you can trigger a pcre-search for `xyz` in the note titles
-- More sophisticated search options have to be added... For now, you can always jump in the current `zet`-directory and "`grep`" your way to your notes.
+- More sophisticated search options have to be added... For now, you can always jump in the current `zet`-directory and "`grep`" your way to your notes. For that I suggest aliases of the form `zet use <directory.name> && cd <directory>` in your `.zshrc`/`.bashrc`.
 
 # Changes summary
 
