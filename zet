@@ -91,7 +91,7 @@ _figure_name() {
   _checkdep identify || return 1
   local file isosec
   file=${1##*/}
-  isosec="$(date -u +%Y%m%d%H%M%S -r "$1")"
+  isosec="$(date +%Y%m%d%H%M%S -r "$1")"
   identify -format "F${isosec}-%G.%e" "$1"
 }
 
@@ -191,8 +191,8 @@ x.commit() {
   fi
 }
 
-x.isosec() { date -u +%Y%m%d%H%M%S "$@"; }
-x.isonan() { date -u +%Y%m%d%H%M%S%N "$@"; }
+x.isosec() { date +%Y%m%d%H%M%S "$@"; }
+x.isonan() { date +%Y%m%d%H%M%S%N "$@"; }
 
 x.dir() {
   local dir="${CONF[zet."${CONF[current]}"]}"
