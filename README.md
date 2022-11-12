@@ -23,7 +23,7 @@ Each note creation triggers the creation of a folder with the current timestamp 
 - Change current `zet`-directory by `zet use <directory name>` (Now all commands affect the current `zet`-directory. If you forgot in which one you are, you can check by `zet current`)
 - Create a new note by `zet create <note name>`. After you saved the file, a git-commit is automatically triggered
 - The same holds for `zet delete <note name>`
-- Analogously, you can edit a note by `zet edit <note name>` or `zet edit <timestamp>`. After saving again, the git-commit is optional
+- Analogously, you can edit a note by `zet edit <note name>` or `zet edit <timestamp>`. If nothing changed, nothing gets committed.
 
 - You can check the total number of notes in the current `zet`-directory by `zet count`
 
