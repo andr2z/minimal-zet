@@ -59,25 +59,6 @@ x.current() { x.config current "$@"; }
 x.download.directory() { x.config download.directory "$@"; }
 x.screenshot.directory() { x.config screenshot.directory "$@"; }
 
-# ------------------------- utility functions ------------------------
-
-_newest() {
-  if (( $# > 1 )); then
-    local newest epoch nepoch
-    for path in "$@"; do
-      echo "PATH: $path" >&2
-      [[ -e "$path" ]] || return 1
-      nepoch=$(date -u "+%s" -r "$path")
-      (( nepoch > epoch )) && epoch="$nepoch" && newest="$path"
-    done
-    echo "$newest"
-    return 0
-  fi
-  IFS=$'\n'
-  local -a f=($(ls -1 --color=never -trd ${1:-.}/* 2>/dev/null))
-  [[ ${#f} > 0 ]] && echo "${f[-1]}"
-}
-
 # ----------------------------- commands -----------------------------
 
 x.count() { mapfile ids < <(x.ids); echo "${#ids[@]}"; }
@@ -141,12 +122,7 @@ x.delete() {
     git commit -m "Deleted $zetid" &>/dev/null || true
     git push &>/dev/null
     cd - &>/dev/null
-}
-
-x.pull() {
-  cd "$(x.dir)" &>/dev/null
-  git pull
-  cd -
+    echo "Committed & pushed deletion"
 }
 
 # TODO add full support for zet query strings
@@ -201,18 +177,18 @@ x.commit() {
   local readme="$dir/README.md"
   [[ ! -r $readme ]] && echo "<not found: $1>" && return 1
 
-  # first pull to make sure no merge conflicts
-  x.pull
-
   # git commit keeping title as commit message 
-  local title
-  title=$(x.title "$1")
-  cd "$dir"
-  git pull -q
-  git add -A "$dir"
-  git commit -m "$title"
-  git push
-  cd -
+  line=$(head -1 "$readme" | sed 's/#\+ *//')
+  test -n "$line"
+  if [[ -z "$(git diff --shortstat)" ]];then
+#    echo "No commit. Nothing changed."
+    return 0
+  else
+    git add -A "$dir" &>/dev/null
+    git commit -m "$line" &>/dev/null
+    git push &>/dev/null
+    echo "Committed & pushed: $line"
+  fi
 }
 
 x.isosec() { date -u +%Y%m%d%H%M%S "$@"; }
@@ -226,21 +202,15 @@ x.dir() {
 x.create() {
   local title="$*"
   local dir readme
-  dir="$(x.dir)/$(x.isosec)"
+  local zetid="$(x.isosec)"
+  dir="$(x.dir)/$zetid"
   readme="$dir/README.md"
   mkdir -p "$dir"
   printf "# %s\n\n" "$title" > "$readme"
-  #iam writing "$title"
   "${CONF[editor]}" "$readme"
   cd "$dir" &>/dev/null
   [[ -s "$dir/README.md" ]] || return 1
-  line=$(head -1 "$dir/README.md" | sed 's/#\+ *//')
-  test -n "$line"
-  git pull -q
-  echo "Committing: $line"
-  git add -A "$dir" &>/dev/null
-  git commit -m "$line" &>/dev/null
-  git push &>/dev/null
+  x.commit "$zetid"
 }
 
 x.edit() {
@@ -250,10 +220,8 @@ x.edit() {
   zetid=${dir##*/}
   local readme="$dir/README.md"
   [[ ! -r "$readme" ]] && echo "Not found." && return 1
-  #iam writing "$(x.title $zetid)"
   "$editor" "$readme"
-  read -r -p "Commit? " resp
-  [[ $resp =~ ^[yY] ]] && x.commit "$zetid"
+  x.commit "$zetid"
 }
 
 x.dex.titles() {
