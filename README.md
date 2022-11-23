@@ -2,6 +2,7 @@
 
 Create notes with minimal effort and maximal searchability.
 This is a minimal version of [cmd-zet](https://github.com/rwxrob/cmd-zet).
+
 Note: 💥 cmd-zet is deprecated: [keg/kn](https://github.com/rwxrob/keg) is the successor.
 
 # What does it?
