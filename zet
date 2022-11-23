@@ -180,15 +180,10 @@ x.commit() {
   # git commit keeping title as commit message 
   line=$(head -1 "$readme" | sed 's/#\+ *//')
   test -n "$line"
-  if [[ -z "$(git diff --shortstat)" ]];then
-#    echo "No commit. Nothing changed."
-    return 0
-  else
-    git add -A "$dir" &>/dev/null
-    git commit -m "$line" &>/dev/null
-    git push &>/dev/null
-    echo "Committed & pushed: $line"
-  fi
+  git add -A "$dir" &>/dev/null
+  git commit -m "$line" &>/dev/null
+  git push &>/dev/null
+  echo "Committed & pushed: $line"
 }
 
 x.isosec() { date +%Y%m%d%H%M%S "$@"; }
@@ -208,7 +203,6 @@ x.create() {
   mkdir -p "$dir"
   printf "# %s\n\n" "$title" > "$readme"
   "${CONF[editor]}" "$readme"
-  cd "$dir" &>/dev/null
   [[ -s "$dir/README.md" ]] || return 1
   x.commit "$zetid"
 }
